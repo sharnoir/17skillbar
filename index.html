@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="top" style="height:100vh; background:#ccc"></div>
+
+
+    <div class="main">
+        <div class="skills">
+            <div class="skill">
+                <div class="skill-name">HTML</div>
+                <div class="skill-bar">
+                    <div class="skill-per" per="90"></div>
+                </div><!-- skill-bar -->
+            </div><!-- skill -->
+            <div class="skill">
+                <div class="skill-name">CSS</div>
+                <div class="skill-bar">
+                    <div class="skill-per" per="95"></div>
+                </div><!-- skill-bar -->
+            </div><!-- skill -->
+            <div class="skill">
+                <div class="skill-name">javaScript</div>
+                <div class="skill-bar">
+                    <div class="skill-per" per="65"></div>
+                </div><!-- skill-bar -->
+            </div><!-- skill -->
+        </div><!-- skills -->
+    </div><!-- main -->
+
+    <div class="top" style="height:100vh; background:#ccc"></div>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+    <script>
+        var executed = false;
+        $(window).scroll(function () {
+            var wScroll = $(this).scrollTop();
+            //(this)는 윈도우를 의미
+            console.log(wScroll);
+            var offset = $('.main').offset().top - 250;
+            if (wScroll > offset) {
+
+                if (!executed) {
+
+                    $('.skill-per').each(function () {
+                        //skill-per 각각의 할일
+                        var $this = $(this);
+                        // A.attr(B) --> A의 속성인 B를 호출
+                        // A.attr(B,C) --> A의 속성인 B를 C로 바꾸겠다
+                        var per = $this.attr('per');
+                        //console.log(per);
+                        $this.css({
+                            width: per + '%'
+                        })
+
+                        $({
+                            aniValue: 0
+                        }).animate({
+                            aniValue: per
+                        }, {
+                            //실행문
+                            duration: 1000,
+                            progress: function () {
+                                var value = this.aniValue
+                                //this는 animate 자체를 의미
+                                //console.log(value)
+                                $this.attr('per', Math.floor(value))
+
+                            }
+                        })
+                    })//each
+                    executed = true
+
+                }
+
+            }
+
+        });
+    </script>
+</body>
+
+</html>
